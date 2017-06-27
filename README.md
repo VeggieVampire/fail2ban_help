@@ -4,7 +4,4 @@ The script uses fail2ban and iptables. It looks at the fail2ban logfile and ways
 ## Install<br>
 sudo apt-get install -y git<br>
 git https://github.com/VeggieVampire/fail2ban_help<br>
-cd fail2ban_help<br>
-sudo apt-get -y install dnsutils<br>
-sudo apt-get -y install fail2ban<br>
 ./install.sh<br>
