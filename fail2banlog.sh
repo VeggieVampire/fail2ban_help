@@ -8,6 +8,7 @@
 # Initial Release: 0
 
 
+
 log='/var/log/fail2ban.log'
 
 # Simple Reports
@@ -43,6 +44,25 @@ log='/var/log/fail2ban.log'
 		printf "\n"
         }
 		
+		
+#Unblock An IP Address
+        UnblockZ()
+        {
+	echo "What IP Address would you like to Unblock?"
+read hoststring
+	sudo iptables -D INPUT -s $hoststring -j DROP
+		printf "\n"
+        }
+		
+#block An IP Address
+        BlockZ()
+        {
+	echo "What IP Address would you like to block?"
+read hoststring
+	sudo iptables -A INPUT -s $hoststring -j DROP
+		printf "\n"
+        }
+		
 # MAIN BODY OF SCRIPT
 #
 # Present the menu selection to the user
@@ -50,17 +70,18 @@ log='/var/log/fail2ban.log'
         echo " What would you like to do?"
         PS3="Please select a numeric option:  "
 
-        select option in Simple_Reports problematic_subnets access_exploits todays_activity	Exit
+        select option in Simple_Reports Problematic_Subnets Access_Exploits Todays_Activity UnBlock_IP Block_IP Exit
 
         do 
                 case "$option"
                         in
-                                Simple_Reports    )  Simple_ReportZ;;
-								problematic_subnets    )  problematic_subnetsZ;;
-								access_exploits    )  access_exploitZ;;
-								todays_activity    )  todays_activityZ;;
-                                Exit         )  exit 0;;
-                                *            )  echo "Invalid selection ! ";;
+                                Simple_Reports    		)  Simple_ReportZ;;
+								Problematic_Subnets    	)  problematic_subnetsZ;;
+								Access_Exploits    		)  access_exploitZ;;
+								Todays_Activity    		)  todays_activityZ;;
+								UnBlock_IP    			)  UnblockZ;;
+								Block_IP    			)  BlockZ;;
+                                Exit         			)  exit 0;;
+                                *            			)  echo "Invalid selection ! ";;
                        esac
        done
-
